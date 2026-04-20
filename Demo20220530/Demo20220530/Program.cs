@@ -14,11 +14,14 @@ namespace Demo20220530
         private static HttpHelper helper = null;
         private static string oauth_token = null;
         private static YY_token _Token = null;
+        //手机号
+        private static string user = "账号";
+        private static string pwd = "密码";
         static void Main(string[] args)
         {
             helper = new HttpHelper();
             Init();
-            if (Login("15573313867", "lw20010208"))
+            if (Login(user, pwd))
             {
                 //{"code":"0","msg":"succ","obj":{"yyid":"2875814880","nickName":"2875814880yy","headPhotoUrl":"https://udbres.yy.com/aq/images/headerlogo/person/1.jpg"}}
                 string res = GetUserInfo();
@@ -49,7 +52,6 @@ namespace Demo20220530
 
             string url = "https://lgn.yy.com/lgn/oauth/x2/s/login_asyn.do";
             string postData = string.Format("username={0}&pwdencrypt={1}&oauth_token={2}&denyCallbackURL=&UIStyle=xelogin&appid=1&cssid=1&mxc=&vk=&isRemMe=0&mmc=&vv=&hiido=1&baiduSecurityInfo=%7B%22data%22%3A%22d8d38dd56b2cf511e794c5dd407a16639348a2ea85c6c1a7d84745202cc526f0208b936afa2a555f91f09ccbac19f5c9ebc518cb270fdc3d1e7ebb8ce63331569af0870710e8321f804a5276983a843289f3135b3d97eeb9bff191518fa7af00%22%2C%22key_id%22%3A%2286%22%2C%22sign%22%3A%22613bc285%22%7D", name, JsTool.GetYYPwd(pwd), oauth_token);
-            //{"code":"0","msg":null,"obj":{"callbackURL":"https://aq.yy.com/p/logincbk.do?jump=https://aq.yy.com/welcome.do&oauth_token=8a9e6d5bb772b84f6c0a438f8de5895ea5ba441d24722736cc1027e0027adb9b2002b6e3c99f67ae6db0be0900148a7114c16b6b76d1c8a6421cc031915a3031&oauth_verifier=8569d17d40e78565c713651e58f913eb&isRemMe=0","redirectURL":null,"vk":null,"vt":null,"pos":"1","verifyid":null,"qin":"up","yyuid":2876902836,"passport":"15573313867","svpic":null,"itvjs":null,"strategy":null},"hdcode":"0"}
             string result = helper.PostAndGetHtml(url, postData, null, null, false, Encoding.UTF8);
             if (result.Contains("\"code\":\"0\""))
             {
